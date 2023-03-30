@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:36:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/29 17:25:46 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:25:15 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_philo	*lstnew(int nbr, t_info *info, t_mutex *mutex, int *is_dead);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 int		ft_strlen(const char *str);
-void	custom_usleep(int time_sleep);
+void	custom_usleep(int time_sleep, int nbr_philo);
 
 int		free_philo(t_philo **philo, t_info *info, t_mutex *mutex, int pick);
 int		free_info_mutex(t_info *info, t_mutex *mutex, int pick, int level);

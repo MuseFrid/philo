@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:47:08 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/24 23:55:31 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:23:37 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,25 @@ static int	end_everything(t_philo *philo, pthread_t *living)
 			break ;
 	}
 	pthread_join(*living, NULL);
+	pthread_mutex_lock(&philo->mutex->printing);
 	free_philo(&philo, philo->info, philo->mutex, PTHREAD);
 	return (1);
+}
+
+static int	wait_the_end(t_philo *philo, t_philo *snake, pthread_t *living)
+{
+	while (1)
+	{
+		if (pthread_join(snake->thread, NULL))
+			return (end_everything(philo, living));
+		if (snake->next)
+			snake = snake->next;
+		if (snake->philo_nbr == 1)
+			break ;
+	}
+	if (pthread_join(*living, NULL))
+		return (end_everything(philo, living));
+	return (0);
 }
 
 int	init_thread(t_philo *philo)
@@ -49,14 +66,5 @@ int	init_thread(t_philo *philo)
 		if (snake->philo_nbr == 1)
 			break ;
 	}
-	while (1)
-	{
-		pthread_join(snake->thread, NULL);
-		if (snake->next)
-			snake = snake->next;
-		if (snake->philo_nbr == 1)
-			break ;
-	}
-	pthread_join(living, NULL);
-	return (0);
+	return (wait_the_end(philo, snake, &living));
 }

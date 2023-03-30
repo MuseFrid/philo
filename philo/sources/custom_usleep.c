@@ -6,13 +6,13 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:58:06 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/24 23:39:03 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:59:28 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	custom_usleep(int time_sleep)
+void	custom_usleep(int time_sleep, int nbr_philo)
 {
 	struct timeval	current_time;
 	int				timecheck;
@@ -26,7 +26,7 @@ void	custom_usleep(int time_sleep)
 		timecheck = ((current_time.tv_sec * 1000)
 				+ (current_time.tv_usec / 1000));
 		if (timecheck < start_time + time_sleep)
-			usleep(100);
+			usleep(nbr_philo * 2);
 		else
 			break ;
 	}

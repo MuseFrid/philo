@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 23:51:59 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/29 17:23:27 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:01:28 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	is_he_dead(t_philo *philo, long start_time)
 	if (philo->last_meal == 0)
 		philo->last_meal = start_time;
 	if ((timecheck - philo->last_meal)
-		>= philo->info->time_to_die)
+		> philo->info->time_to_die)
 	{
 		pthread_mutex_lock(&philo->mutex->died);
 		*philo->is_dead = DEAD;

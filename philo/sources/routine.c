@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 23:19:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/29 17:04:29 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:24:52 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	eating(t_philo *philo)
 		pthread_mutex_lock(&philo->eat_enough);
 		philo->eat++;
 		pthread_mutex_unlock(&philo->eat_enough);
-		custom_usleep(philo->info->time_to_eat);
+		custom_usleep(philo->info->time_to_eat, philo->info->number_philo);
 		pthread_mutex_unlock(&philo->next->fork);
 	}
 	else
@@ -58,7 +58,7 @@ void	*philo_routine(void *info)
 
 	philo = (t_philo *) info;
 	if (philo->philo_nbr % 2 == 0)
-		custom_usleep(philo->info->time_to_eat / 2);
+		custom_usleep(philo->info->time_to_eat / 2, philo->info->number_philo);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex->died);
@@ -67,7 +67,7 @@ void	*philo_routine(void *info)
 		pthread_mutex_unlock(&philo->mutex->died);
 		eating(philo);
 		print_action(philo, "is sleeping", BOLDYELLOW);
-		custom_usleep(philo->info->time_to_sleep);
+		custom_usleep(philo->info->time_to_sleep, philo->info->number_philo);
 		print_action(philo, "is thinking", BOLDCYAN);
 	}
 	pthread_mutex_unlock(&philo->mutex->died);
