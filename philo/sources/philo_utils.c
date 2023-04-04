@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:55:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/04 20:33:58 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:54:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	ft_atoi(const char *str)
 	{
 		num = (num * 10) + (str[i] - 48);
 		i++;
-		if (sign == -1 && (-num) > 2147483648 && ++errno)
+		if (sign == -1 && (num) > 2147483648 && ++errno)
 			return (0);
-		if (sign == 1 && (-num) > 2147483647 && ++errno)
+		if (sign == 1 && (num) > 2147483647 && ++errno)
 			return (-1);
 	}
 	if (sign == -1)
