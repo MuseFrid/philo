@@ -6,18 +6,18 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:18:52 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/25 16:15:34 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:19:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 int	main(int argc, char **argv)
 {
 	t_philo	*philo;
 
 	philo = NULL;
-	if (argv && (argc == 5 || argc == 6))
+	if (argv && (argc == NO_EAT_RESTRICT || argc == EAT_RESTRICT))
 	{
 		if (check_arg(argc, argv))
 			return (gd_error(ARG));
@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 			return (errno);
 		if (init_thread(philo))
 			return (errno);
-		free_philo(&philo, philo->info, philo->mutex, -1);
-		return (0);
+		free_philo(&philo, philo->info, philo->mutex, NO_ERROR_MSG);
+		return (SUCCES);
 	}
 	write(2, "Something wrong with arg !\n", 27);
-	return (1);
+	return (FAIL);
 }

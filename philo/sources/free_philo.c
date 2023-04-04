@@ -6,35 +6,30 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:29:41 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/24 22:30:38 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:05:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 int	free_philo(t_philo **philo, t_info *info, t_mutex *mutex, int pick)
 {
-	int	how_many;
-
-	if ((*philo)->is_dead)
+	if (pick != PHILO_INIT && (*philo)->is_dead)
 		free((*philo)->is_dead);
-	how_many = info->number_philo;
 	free_info_mutex(info, mutex, pick, TWO_MUTEX);
-	lstclear(philo, how_many);
-	return (1);
+	lstclear(philo, info->number_philo);
+	return (FAIL);
 }
 
 int	free_info_mutex(t_info *info, t_mutex *mutex, int pick, int level)
 {
-	if (info)
-		free(info);
-	if (level >= 1)
+	free(info);
+	if (level >= ONE_MUTEX)
 		pthread_mutex_destroy(&(mutex->died));
-	if (level >= 2)
+	if (level >= TWO_MUTEX)
 		pthread_mutex_destroy(&(mutex->printing));
-	if (mutex)
-		free(mutex);
-	if (pick != -1)
+	free(mutex);
+	if (pick != NO_ERROR_MSG)
 		gd_error(pick);
-	return (1);
+	return (FAIL);
 }

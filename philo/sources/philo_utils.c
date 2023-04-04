@@ -6,17 +6,17 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:55:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/22 17:51:47 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:33:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 int	ft_isdigit(int c)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
+	if (c >= '0' && c <= '9')
+		return (FAIL);
+	return (SUCCES);
 }
 
 int	ft_strlen(const char *str)
@@ -38,10 +38,10 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	i = 0;
 	num = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
-	if (str[i] == 43 || str[i] == 45)
-		if (str[i++] == 45)
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
 			sign *= -1;
 	while (str[i] && ft_isdigit(str[i]))
 	{

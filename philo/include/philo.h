@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:36:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/30 18:25:15 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:29:41 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 # include <stdlib.h>
 # include "color.h"
 # include "struct.h"
-# include "my_enum.h"
-
-# define NO_FREE NULL
-# define DEAD 1
+# include "enum_macro.h"
 
 int		check_arg(int argc, char **argv);
 int		info_check(t_info *info);

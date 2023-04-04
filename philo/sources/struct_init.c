@@ -6,24 +6,24 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:05:27 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/29 17:26:23 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:27:23 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static int	info_init(int argc, char **argv, t_info **info)
 {
 	*info = (t_info *)malloc(sizeof(t_info));
 	if (!*info)
 		return (free_info_mutex(NO_FREE, NO_FREE, MALLOC, ZERO_MUTEX));
-	(*info)->number_philo = ft_atoi(argv[1]);
-	(*info)->time_to_die = ft_atoi(argv[2]);
-	(*info)->time_to_eat = ft_atoi(argv[3]);
-	(*info)->time_to_sleep = ft_atoi(argv[4]);
-	(*info)->nbr_eat = -1;
-	if (argc == 6)
-		(*info)->nbr_eat = ft_atoi(argv[5]);
+	(*info)->number_philo = ft_atoi(argv[NBR_PHILO]);
+	(*info)->time_to_die = ft_atoi(argv[TIME_TO_DIE]);
+	(*info)->time_to_eat = ft_atoi(argv[TIME_TO_EAT]);
+	(*info)->time_to_sleep = ft_atoi(argv[TIME_TO_SLEEP]);
+	(*info)->nbr_eat = NO_NBR_EAT;
+	if (argc == IS_NBR_EAT)
+		(*info)->nbr_eat = ft_atoi(argv[NBR_EAT]);
 	if (errno)
 		return (free_info_mutex(*info, NO_FREE, ATOI, ZERO_MUTEX));
 	if (info_check(*info))
@@ -47,9 +47,9 @@ static int	init_is_dead(int **is_dead)
 {
 	*is_dead = (int *)malloc(sizeof(int));
 	if (!*is_dead)
-		return (1);
-	**is_dead = 0;
-	return (0);
+		return (FAIL);
+	**is_dead = NO;
+	return (SUCCES);
 }
 
 static int	philo_init(t_philo **head, t_info *info, t_mutex *mutex)
@@ -69,15 +69,16 @@ static int	philo_init(t_philo **head, t_info *info, t_mutex *mutex)
 		if (!new)
 		{
 			free(is_dead);
+			info->number_philo = i - 1;
 			return (free_philo(head, info, mutex, PHILO_INIT));
 		}
 		new->day_start.tv_sec = day_start.tv_sec;
 		new->day_start.tv_usec = day_start.tv_usec;
 		lstadd_back(head, new);
 	}
-	if (info->number_philo != 1)
+	if (info->number_philo != ONLY_ONE)
 		new->next = *head;
-	return (0);
+	return (SUCCES);
 }
 
 int	struct_init(int argc, char **argv, t_philo **head)
@@ -88,10 +89,10 @@ int	struct_init(int argc, char **argv, t_philo **head)
 	info = NULL;
 	mutex = NULL;
 	if (info_init(argc, argv, &info))
-		return (1);
+		return (FAIL);
 	if (mutex_init(info, &mutex))
-		return (1);
+		return (FAIL);
 	if (philo_init(head, info, mutex))
-		return (1);
-	return (0);
+		return (FAIL);
+	return (SUCCES);
 }

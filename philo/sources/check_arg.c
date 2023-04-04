@@ -6,11 +6,11 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:08:37 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/03/22 17:52:06 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:11:12 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 int	check_arg(int argc, char **argv)
 {
@@ -23,7 +23,7 @@ int	check_arg(int argc, char **argv)
 		j = 0;
 		while (argv[i][j])
 			if (!(ft_isdigit(argv[i][j++])))
-				return (1);
+				return (FAIL);
 	}
-	return (0);
+	return (SUCCES);
 }
